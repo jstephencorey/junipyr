@@ -8,7 +8,7 @@ static const char *TAG = "MAIN";
 
 void app_main(void)
 {
-    ESP_LOGI(TAG, "Starting!");
+    ESP_LOGI(TAG, "Starting !");
     printf("Hello, ESP32!\n");
 
     while (1) {
