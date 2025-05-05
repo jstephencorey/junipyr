@@ -7,12 +7,7 @@
 static const char *TAG = "MAIN";
 
 
-
-void app_main(void)
-{
-    ESP_LOGI(TAG, "Starting !");
-    printf("Hello, ESP32!\n");
-
+void setup_spiffs() {
     esp_vfs_spiffs_conf_t conf = {
         .base_path = "/data",
         .partition_label = NULL,
@@ -21,7 +16,10 @@ void app_main(void)
     };
 
     esp_vfs_spiffs_register(&conf);
+    ESP_LOGD(TAG, "Initializing spiffs");
+}
 
+void test_spiffs() {
     FILE* f = fopen("/data/hello.txt", "r");
     if (f) {
         char line[64];
@@ -31,6 +29,15 @@ void app_main(void)
     } else {
         printf("Failed to open file\n");
     }
+}
+
+void app_main(void)
+{
+    ESP_LOGI(TAG, "Starting !");
+    printf("Hello, ESP32!\n");
+
+    setup_spiffs();
+    test_spiffs();
 
     while (1) {
         vTaskDelay(1000 / portTICK_PERIOD_MS);
